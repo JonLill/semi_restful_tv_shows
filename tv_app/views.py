@@ -19,6 +19,13 @@ def addShow(request):
     return render(request, "addShow.html")
 
 def processNew(request):
+    errors = Show.objects.basic_validator(request.POST)
+    if errors:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect('/shows/new')
+
+
     this_show = Show.objects.create(title=request.POST['title'], network=request.POST['network'], release_date=request.POST['release_date'], desc=request.POST['desc'])
     print(this_show)
     return redirect ('/shows')
@@ -47,7 +54,14 @@ def updateShow(request, showId):
 
 
 def updateNew(request, showId):
+
     this_show = Show.objects.get(id=showId)
+
+    errors = Show.objects.basic_validator(request.POST)
+    if errors:
+        for key, value in errors.items():
+            messages.error(request, value)
+        return redirect(f'/shows/update/{showId}')
 
     show_to_update = Show.objects.get(id=showId)
     show_to_update.title = request.POST['title']
