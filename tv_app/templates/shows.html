@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>All Shows</h1>
+    </div>
+    <table class="table table-striped table-warning">
+        <thead>
+            <td>ID:</td>
+            <td>Title:</td>
+            <td>Network:</td>
+            <td>Release Date:</td>
+            <td>Actions:</td>
+        </thead>
+        {% for show in shows %}  
+            <tr>
+                <td>{{show.id}}</td>
+                <td>{{show.title}}</td>
+                <td>{{show.network}}</td>
+                <td>{{show.release_date}}</td>
+                <td><a href="/shows/{{show.id}}">Show</a>
+                    <a href="/shows/update/{{show.id}}">Edit</a>
+                    <a href="/shows/delete/{{show.id}}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br/> 
+    <a href="/shows/new">Add a New Show</a>
+</body>
+</html>
